@@ -26,6 +26,16 @@ async function insertInImages(images, product_id) {
 
 }
 
+async function insertInProductColors(product_id, colorName, colorHex, count){
+    const query = 'INSERT INTO product_colors (product_id, color_name, color_hex, count) values ($1, $2, $3, $4)';
+    const values = [product_id, colorName, colorHex, count];
+    try {
+        await pool.query(query, values);  
+    } catch (error) {
+        console.log(error.message + error.stack);
+    }
+}
+
 async function getDiscounted(count) {
     try {
         const products = await pool.query(
@@ -87,7 +97,7 @@ async function getDiscounted(count) {
     }
 }
 
-async function getProducts(hasDetail = false, hasImage = false, hasRate = false, count = 0, product_id = -1, category_id = []) {
+async function getProducts(hasDetail = false, hasImage = false, hasRate = false, hasColor = false, count = 0, product_id = -1, category_id = []) {
     let query;
     let queryParams = [];   
     query = 'SELECT * FROM products';
@@ -134,6 +144,7 @@ async function getProducts(hasDetail = false, hasImage = false, hasRate = false,
     const productIds = products.map(p => p.id);
     const imageMap = new Map();
     const rateMap = new Map();
+    const colorMap = new Map();
     let completeProduct = products;
 
     if (hasImage) {
@@ -205,7 +216,35 @@ async function getProducts(hasDetail = false, hasImage = false, hasRate = false,
             };
         })
     }
+
+    if (hasColor){
+        let colors;
+        try {
+            const result = await pool.query('SELECT product_id, color_name, color_hex,count FROM product_colors WHERE product_id = ANY($1)', [productIds]);
+            colors = result.rows;
+        } catch (error) {
+            console.log(error.message + " stack: " + error.stack);
+            throw error;
+        }
+
+        colors.forEach(color => {
+
+            if (!colorMap.has(color.product_id)){
+                colorMap.set(color.product_id, []);
+            }
+
+            colorMap.get(color.product_id).push({name: color.color_name, hex: color.color_hex, count: color.count});
+        })
+
+        completeProduct = completeProduct.map(p => {
+            return {
+                ...p,
+                colors: colorMap.get(p.id)
+            }
+        });
+    }
+
     return completeProduct;
 }
 
-export { getDiscounted, insertInProducts, insertInImages, getProducts };
+export { getDiscounted, insertInProducts, insertInImages, getProducts, insertInProductColors };

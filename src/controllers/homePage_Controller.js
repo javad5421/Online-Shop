@@ -11,11 +11,11 @@ const homePage = async (req, res, next) => {
     const bigBillboards = await getBillboard('big');
     const mediumBillboards = await getBillboard('medium');
     const smallBillboards = await getBillboard('small');
-    const amazingProducts = await getProducts(true, true, true, 5);
+    const amazingProducts = await getProducts(true, true, true, false, 5);
     //product category one
-    const products_g1 = await getProducts(false, true,true, 10); // do not forget to change all this arrayyyy
-    const products_g2 = await getProducts(false, true, false, 12);
-    const products_g3 = await getProducts(false, true, true, 12);
+    const products_g1 = await getProducts(false, true,true, false, 10); // do not forget to change all this arrayyyy
+    const products_g2 = await getProducts(false, true, false, false, 12);
+    const products_g3 = await getProducts(false, true, true, false, 12);
 
     res.render("index.ejs", {
       categories: nestedMenu,

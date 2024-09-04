@@ -136,8 +136,8 @@ function isObjectEmpty(object){
 //color handling
 
 //shows new colors in page
-function addColor(color, name){
-    const newColor = {name: name, color: color};
+function addColor(color, name, count){
+    const newColor = {name: name, color: color, count: count};
     colors.push(newColor);
 
     const colorHolder = document.getElementById("appended-colors");
@@ -148,7 +148,7 @@ function addColor(color, name){
         newColorRow.innerHTML = `<div class="product-meta-color-items mt-0">
                         <label class="btn-light mb-0 px-2 py-1">
                             <span style="background-color: ${c.color};"></span>
-                            ${c.name}
+                            ${c.name}  ,  تعداد: ${count}
                             <button class="btn-close ms-2 " type="button" name="removeitem" ></button>
                         </label>
                     </div>`;
@@ -169,7 +169,8 @@ addColorBtn.addEventListener('click', function (e) {
     e.preventDefault();
     const name = document.getElementById('color-name').value;
     const color = document.getElementById("color-hex").value;
-    addColor(color, name);
+    const count = document.getElementById("color-count").value;
+    addColor(color, name, count);
 })
 
 //image handling
@@ -380,7 +381,7 @@ async function sendAddProductForm(form) {
 
     //append colors to formdata
     formData.append('colors', JSON.stringify(colors));
-    
+
     try {
         const response = await fetch("/admin/addproduct", {
             method: 'POST',

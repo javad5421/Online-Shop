@@ -1,4 +1,4 @@
-import {insertInProducts, insertInImages} from '../models/products.js';
+import {insertInProducts, insertInImages, insertInProductColors} from '../models/products.js';
 
 async function addNewProduct_controller (req, res, next){
     try {
@@ -20,8 +20,15 @@ async function addNewProduct_controller (req, res, next){
         const datetime = new Date(req.body.datetime);
 
         const result = await insertInProducts(name,price,quantity,description,p_title, e_title, discount, datetime, category_id, details);
+        
         if(result.id){
             insertInImages(image_urls, result.id);
+
+            //add colors to db
+            colors.forEach(color => {
+                console.log(`color hex to save in server db: ${color.hex}`);
+                insertInProductColors(result.id, color.name, color.hex, color.count);
+            });
         }
     } catch (error) {
         console.log(error.message + error.stack);

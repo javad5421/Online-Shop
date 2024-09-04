@@ -122,38 +122,25 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="product-meta-color">
-                                <h5 class="font-16">
-                                    انتخاب رنگ کالا
-                                </h5>
-                                <div class="product-meta-color-items">
-                                    <input type="radio" class="btn-check" name="options" id="option1" autocomplete="off"
-                                        checked>
-                                    <label class="btn " for="option1">
-                                        <span style="background-color: #c00;"></span>
-                                        قرمز
-                                    </label>
-        
-                                    <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off">
-                                    <label class="btn " for="option2">
-                                        <span style="background-color: #111;"></span>
-                                        مشکی
-                                    </label>
-        
-                                    <input type="radio" class="btn-check" name="options" id="option3" autocomplete="off"
-                                        disabled>
-                                    <label class="btn " for="option3">
-                                        <span style="background-color: #00cc5f;"></span>
-                                        سبز
-                                    </label>
-        
-                                    <input type="radio" class="btn-check" name="options" id="option4" autocomplete="off">
-                                    <label class="btn " for="option4">
-                                        <span style="background-color: #1b69f0;"></span>
-                                        آبی
-                                    </label>
+                            <% if (product.colors) { %>
+                                <div class="product-meta-color">
+                                    <h5 class="font-16">
+                                        انتخاب رنگ کالا
+                                    </h5>
+                                    <div class="product-meta-color-items">
+                                        <% for (let index = 0; index < product.colors.length; index++) {%>
+                                            <% const checkstate = index === 0 ? 'checked' : '' %>
+                                            <% const enablity = product.colors[index].count > 0 ? '' : 'disabled' %>
+                                            <input type="radio" class="btn-check" name="options" id="option<%= index %>" autocomplete="off"<%= checkstate %> <%= enablity %>>
+                                            <label class="btn " for="option<%= index %>">
+                                                <span style="background-color: <%= product.colors[index].hex %>;"></span><!--fuck this irrelavant nonsence error-->
+                                                <%= product.colors[index].name %>
+                                            </label>
+                                        <%} %>
+                                    </div>
                                 </div>
-                            </div>
+                            <% } %>
+                            
                             <div class="product-meta-count text-muted">
                                 <span><%= product.quantity %> عدد در انبار</span>
                             </div>
