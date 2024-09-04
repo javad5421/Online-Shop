@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "name": "Electronics",
+    "parent_id": null,
+    "children": [
+      {
+        "id": 3,
+        "name": "Phones",
+        "parent_id": 1,
+        "children": [
+          { "id": 7, "name": "Smartphones", "parent_id": 3, "children": [] },
+          { "id": 8, "name": "Feature Phones", "parent_id": 3, "children": [] }
+        ]
+      },
+      {
+        "id": 4,
+        "name": "Laptops",
+        "parent_id": 1,
+        "children": [
+          { "id": 9, "name": "Gaming Laptops", "parent_id": 4, "children": [] },
+          { "id": 10, "name": "Ultrabooks", "parent_id": 4, "children": [] }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Clothing",
+    "parent_id": null,
+    "children": [
+      {
+        "id": 5,
+        "name": "Men",
+        "parent_id": 2,
+        "children": [
+          { "id": 11, "name": "T-Shirts", "parent_id": 5, "children": [] }
+        ]
+      },
+      {
+        "id": 6,
+        "name": "Women",
+        "parent_id": 2,
+        "children": [
+          { "id": 12, "name": "Dresses", "parent_id": 6, "children": [] }
+        ]
+      }
+    ]
+  }
+]

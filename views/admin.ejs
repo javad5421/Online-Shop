@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="FA-IR" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>golchehr admin</title>
+    <link rel="stylesheet" href="css/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="font/bootstrap-icon/bootstrap-icons.css">
+    <link rel="stylesheet" href="plugins/waves/waves.min.css">
+    <link rel="stylesheet" href="plugins/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="plugins/timer/timer.css">
+    <link rel="stylesheet" href="plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+    <!-- category editing -->
+    <div class="mega-menu d-lg-block d-none">
+        <div class="container-fluid">
+            <div class="top-menu-parent">
+                <div class="row align-items-center">
+                    <div class="col-lg-9">
+                        <div class="top-menu-menu">
+                            <ul class="navbar-nav align-items-center">
+                                <li class="position-relative m-0"></li>
+                                <li class="nav-item main-menu-head"><a href=""
+                                        class="nav-link border-animate main-color-one-bg fromCenter btn nav-active fw-bold"><i
+                                            class="bi bi-list"></i>
+                                        دسته بندی تغییر
+                                    </a>
+                                    <ul class="main-menu mega-container">
+                                        <% categories.forEach(title => { %>
+                                            <li class="main-menu-sub-active-li">
+                                                <div class="d-flex justify-content-around align-items-center">
+                                                    <a href=""><i class="bi bi-phone align-self-start"></i>
+                                                        <%= title.name %></a>
+                                                        <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#<%= title.id %>" aria-expanded="false" aria-controls="<%= title.id %>">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                                                <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+                                                              </svg>
+                                                        </button>
+                                                        <div class="position-relative end-50 collapse" id="<%= title.id %>">
+                                                          <div class="card card-body">
+                                                            <form class="mb-0" action="admin/addcategory" method="post">
+                                                                <input type="text" class="form-control" name="title" required>
+                                                                <button class="btn btn-success ms-2 " type="submit" name="parentitem" value="<%= title.id %>">add new category</button>
+                                                            </form>
+                                                          </div>
+                                                        </div>
+                                                        <!-- add a dropdown her -->
+                                                        
+                                                        <form class="mb-0" action="admin/editcategory" method="post">
+                                                            <button class="btn-close ms-2 " type="submit" name="removeitem" value="<%= title.id %>"></button>
+                                                        </form>
+                                                </div>
+                                                
+                                                <ul class="main-menu-sub back-menu"
+                                                    style=" background: #fff url('assets/image/509-5092096_offering-high-quality-mobile-repair-service-main-image_prev_ui.png') no-repeat;">
+                                                    <% title.children.forEach(header => { %>
+                                                        <div class="d-flex justify-content-around align-items-center">
+                                                            <li><a class="title my-flex-baseline" href=""><%= header.name %></a>
+                                                            </li>
+                                                            <!-- this form is for adding new item to category under this itme -->
+                                                            <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#<%= header.id %>" aria-expanded="false" aria-controls="<%= header.id %>">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                                                    <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+                                                                  </svg>
+                                                            </button>
+                                                            <div class="collapse" id="<%= header.id %>">
+                                                              <div class="card card-body">
+                                                                <form class="mb-0" action="admin/addcategory" method="post">
+                                                                    <input type="text" class="form-control" name="title" required>
+                                                                    <button class="btn btn-success ms-2 " type="submit" name="parentitem" value="<%= header.id %>">add new category</button>
+                                                                </form>
+                                                              </div>
+                                                            </div>
+                                                            <!-- button for removing category -->
+                                                            <form class="mb-0" action="admin/editcategory" method="post">
+                                                                <button class="btn-close ms-2 " type="submit" name="removeitem" value="<%= header.id %>"></button>
+                                                            </form>
+                                                        </div>
+
+                                                        <% header.children.forEach(element => { %>
+                                                            <div class="d-flex justify-content-around align-items-center">
+                                                                <li><a href='<%=element.url %>' > <%= element.name %></a></li>
+                                                                </li>
+                                                                <form class="mb-0" action="admin/editcategory" method="post">
+                                                                    <button class="btn-close ms-2 " type="submit" name="removeitem" value="<%= element.id %>"></button>
+                                                                </form>
+                                                            </div>
+                                                        <% }); %>
+                                                    <% }); %>
+                                                </ul>
+                                            </li>
+                                        <% }); %>
+                                        <!-- this form is for adding new item to category under this item -->
+                                        <button class="btn d-flex justify-content-center align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#addCategory" aria-expanded="false" aria-controls="addCategory">
+                                            <p> add new title </p>
+                                        </button>
+                                        <div class="collapse" id="addCategory">
+                                          <div class="card card-body">
+                                            <form class="mb-0" action="admin/addcategory" method="post">
+                                                <input type="text" class="form-control" name="title" required>
+                                                <button class="btn btn-success ms-2 " type="submit" name="parentitem" value="parent">add new category</button>
+                                            </form>
+                                          </div>
+                                        </div>
+                                    </ul>
+                                </li>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="d-flex align-items-center justify-content-end">
+                            <a href=""
+                                class="main-color-three-bg btn border-0 d-flex align-items-center rounded-pill">038 tel<i
+                                    class="bi bi-whatsapp text-white ms-2"></i></a>
+                            <a href=""
+                                class="main-color-two-bg btn border-0 d-flex align-items-center ms-3 rounded-pill">0912 tel<i
+                                    class="bi bi-telephone-fill ms-2 text-white"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end category editing -->
+   
+
+    <!-- add product -->
+    <div class="container-fluid">
+        <hr>
+        <h2>ایجاد محصول جدید</h2>
+        <br>
+        <form class="row g-3" id="addproduct-form">
+            <div class="col-md-3">
+              <label for="inputname4" class="form-label">نام محصول (به کاربر نمایش داده نمیشود)</label>
+              <input type="text" name="name" class="form-control" id="inputname4">
+            </div>
+            <div class="col-md-3">
+              <label for="inputprice4" class="form-label">قیمت</label>
+              <input type="number" name="price" class="form-control" id="inputprice4">
+            </div>
+            <div class="col-md-3">
+                <label for="inputquantity4" class="form-label">تعداد</label>
+                <input type="number" name="quantity" class="form-control" id="inputquantity4">
+            </div>
+            <div class="col-12">
+                <label for="productDescription">توضیحات</label>
+                <textarea name="description" class="form-control" id="productDescription" rows="10" placeholder="توضیحات را اینجا وارد کنید"></textarea>
+            </div>
+            <div class="col-6">
+                <label for="persian-title" class="form-label">قسمت فارسی تیتر</label>
+                <input name="persian_title" type="text" class="form-control" id="persian-title" placeholder="persian part of name">
+            </div>
+            <div class="col-6">
+                <label for="english-title" class="form-label">قسمت انگلیسی تیتر</label>
+                <input name="english_title" type="text" class="form-control" id="english-title" placeholder="english part of name">
+            </div>
+              <!------------------------------------------------->
+            <div class="col-md-6">
+                <label for="discount" class="form-label">میزان تخفیف را وارد کنید ! اگر تخفیف ندارد صفر وارد کنید</label>
+                <input name="discount" type="number" value="0" placeholder="0" class="form-control" id="discount">
+            </div>
+            <div class="col-md-6">
+                <label for="datetime" class="form-label">زمان پایان تخفیف</label>
+                <input name="datetime" type="datetime-local" class="form-control" id="datetime">
+            </div>
+            <div class="col-md-12">
+                <hr>
+                <h3>انتخاب دسته بندی</h3>
+            </div>
+            <div class="col-md-4">
+                <label for="level1">Level 1 Category</label>
+                <select  id="category_level1" class="form-control">
+                    <option value="">Select Level 1 Category</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="level2">Level 2 Category</label>
+                <select id="category_level2" class="form-control">
+                    <option value="">Select Level 2 Category</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label name="level1" for="level3">Level 3 Category</label>
+                <select name="category" id="category_level3" class="form-control">
+                    <option value="">Select Level 3 Category</option>
+                </select>
+            </div>
+            <div id="submitted-details">
+
+            </div>
+            <div class="col-md-12">
+                <hr>
+                <h3>جزئیات محصول</h3>
+            </div>
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">عنوان</th>
+                        <th scope="col">توضیحات</th>
+                      </tr>
+                    </thead>
+                    <tbody id="product-details-table">
+                      
+                    </tbody>
+                  </table>
+            </div>
+            <div class="col-md-12">
+                <P>برای اضافه کردن جزئیات جدید به محصول : به عنوان مثال :: عنوان : رنگ -- توضیحات : سبز</P>
+            </div>
+            <div class="col-md-3"><!--need modification-->
+              <label for="detail-title">عنوان</label>
+              <input name="detail-title" type="text" class="form-control" id="detail-title">
+            </div>
+            <div class="col-md-8">
+              <label for="detail-description">توضیحات</label>
+              <input name="detail-description" type="text" class="form-control" id="detail-description">
+            </div>          
+            <div class="col-md-1">
+                <br>        
+                <button id="add-new-detail" class="btn btn-success">اضافه کردن</button>
+            </div>
+            <!---------------------------------- color ---------------------------------------------->
+            <div class="col-md-12">
+                <hr>
+                <h3> رنگ ها</h3>
+            </div><!--add test for ... -->
+            <div id="appended-colors" class="col-md-12 d-flex flex-row justify-content-start flex-wrap "><!--  hold new colors beneath  -->
+            </div>
+            <div class="col-md-3"><!--need modification-->
+               <label for="color-name">نام رنگ</label>
+               <input name="color-name" type="text" class="form-control" id="color-name">
+            </div>
+            <div class="col-md-1">
+               <label for="color-hex">انتخاب رنگ</label>
+               <input name="color-hex" type="color" class="form-control form-control-color" id="color-hex">
+            </div>
+            <div class="col-md-2">
+                <br>        
+                <button id="add-new-color-button" class="btn btn-success">اضافه کردن رنگ</button>
+            </div>             
+
+            <!--picture-->
+            <div class="col-md-12">
+                <br>
+                <hr>
+                <h3>عکس ها</h3>
+            </div>
+            <div class="col-md-12 d-flex flex-wrap" id="images-preview">
+            </div>
+            <div class="col-md-6">
+                <p>برای اضافه کردن عکس جدید ابتدا تصاویر مورد نظر خود را انتخاب کنید (میتوانید بیش از یک عکس انتخاب کنید)</p>
+                <input class="form-control" type="file" id="image-input" accept="image/*" multiple>
+            </div>
+            <div class="col-12">
+                <hr>
+                <button type="submit" class="btn btn-primary" id="addproduct-form_submit_btn">Add new Product</button>
+            </div>
+            <div class="h4 pb-2 mb-4 text-danger border-bottom border-danger">
+                All products
+              </div>
+        </form>
+
+        <!--add billboard form-->
+        <form class="row g-3" id="addbillboard-form">
+            <div class="col-md-12">
+                <h3>اضافه کردن بیلبورد</h3>
+            </div>
+            <div class="col-md-12">
+                <div id="billboard-preview"></div>
+            </div>
+            <div class="col-md-4">
+                <input class="form-control" type="file" accept="image/*" id="billboard-images">
+            </div>
+            <div class="col-md-12"></div>
+            <div class="col-md-4">
+                <p>یک نام برای بیلبورد انتخاب کنید (به کاربر نمایش داده نمیشود)</p>
+                <input name="name" type="text" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <p>نوع بیلبورد را انتخاب کنید</p>
+                <select name="billboard_type" class="form-control" id="">
+                    <option value="big">big</option>
+                    <option value="medium">medium</option>
+                    <option value="small">small</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <p>یک url برای مقصد این بیلبورد انتخاب کنید</p>
+                <input name="billboard_url" type="url" class="form-control" id="billboard_url">
+            </div>
+            <div class="col-md-12">
+                <button class="btn btn-primary" type="submit">اضافه کردن بیلبورد جدید</button>
+                <hr>
+            </div>
+        </form>
+    </div>
+
+    <!-- end add product -->
+
+    <!-- Footer -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="plugins/waves/waves.min.js"></script>
+    <script src="plugins/swiper/swiper-bundle.min.js"></script>
+    <script src="plugins/timer/timer.js"></script>
+    <script src="plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/jquery-app.js"></script>
+
+    <!-- ===== start new update -->
+    <script src="plugins/go-to-top/script.js"></script>
+    <script src="plugins/rasta-contact/script.js"></script>
+
+    <link rel="stylesheet" href="plugins/go-to-top/style.css">
+    <link rel="stylesheet" href="plugins/rasta-contact/style.css">
+
+    <!-- specific to this document -->
+    <script src="js/adminpage.js"></script>
+</body>
+</html>
