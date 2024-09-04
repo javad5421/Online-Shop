@@ -12,7 +12,7 @@ async function getProductById(req, res, next) {
         const product = await getProducts(true, true, true, true, 0, productId); 
         const nestedCategory_ids = await NestedCategoriesSecondLayer(parseInt(product[0].category));
         const otherProducts = await getProducts(false, true, true, false, 0, -1, nestedCategory_ids);
-        console.log(product[0]);
+        
         res.render('product.ejs', {
             categories: nestedMenu,
             product: product[0],

@@ -148,7 +148,7 @@ function addColor(color, name, count){
         newColorRow.innerHTML = `<div class="product-meta-color-items mt-0">
                         <label class="btn-light mb-0 px-2 py-1">
                             <span style="background-color: ${c.color};"></span>
-                            ${c.name}  ,  تعداد: ${count}
+                            ${c.name}  ,  تعداد: ${c.count}
                             <button class="btn-close ms-2 " type="button" name="removeitem" ></button>
                         </label>
                     </div>`;
