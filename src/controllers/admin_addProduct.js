@@ -26,8 +26,7 @@ async function addNewProduct_controller (req, res, next){
 
             //add colors to db
             colors.forEach(color => {
-                console.log(`color hex to save in server db: ${color.hex}`);
-                insertInProductColors(result.id, color.name, color.hex, color.count);
+                insertInProductColors(result.id, color.name, color.color, color.count);
             });
         }
     } catch (error) {
