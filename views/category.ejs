@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="FA-IR" dir="rtl">
 
-
+    <%- include('partials/header.ejs') %>
     <!-- start breadcroumb -->
 
     <div class="bread-crumb pt-3">
@@ -287,7 +287,7 @@
                                     <div class="search-form">
                                         <form action="">
                                             <div class="search-filed">
-                                                <input type="text" placeholder="جستجوی محصولات ..."
+                                                <input type="text" placeholder=" جستجو در دسته بندی ..."
                                                     class="form-control search-input">
                                                 <button type="submit"
                                                     class="btn search-btn main-color-one-bg rounded-pill"><i
@@ -301,6 +301,19 @@
                                 <h5 class="filter-item-title">دسته بندی ها</h5>
                                 <div class="filter-item-content">
                                     <form action="">
+                                        <% if(subCategories) {%>
+                                            <% subCategories.foreach(cat => {%>
+                                                <div class="d-flex align-items-center justify-content-between flex-wrap mb-3"></div>
+                                                    <div class="form-check">
+                                                        <label for="<%= cat.id %>" class="form-check-label"><%= cat.name %><i
+                                                                class="bi bi-phone me-1"></i></label>
+                                                        <input type="checkbox" name="" id="<%= cat.id %>"
+                                                            class="form-check-input">
+                                                    </div>
+                                                </div>
+                                            <%})%>
+                                            
+                                        <% } %>
                                         <div class="d-flex align-items-center justify-content-between flex-wrap mb-3">
                                             <div class="form-check">
                                                 <label for="colorCheck11" class="form-check-label">موبایل <i
@@ -469,420 +482,66 @@
                     </div>
                     <div class="category-items">
                         <div class="row g-3">
-                            <div class="col-lg-4">
-                                <div class="product-box ">
-                                    <div class="product-timer">
-                                        <div class="timer-label">
-                                            <span>40% تخفیف</span>
+                            <% products.forEach(p => {%>
+                                <div class="col-lg-4">
+                                    <div class="product-box ">
+                                        <div class="product-timer">
+                                            <% if (p.discount) { %>
+                                                <div class="timer-label">
+                                                    <span><%= p.discount %>% تخفیف</span>
+                                                </div>
+                                            <% } %>
+                                            
+                                            <div class="product-header-btn">
+                                                <a href="" class="" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    data-bs-title="مقایسه"><i class="bi bi-shuffle"></i></a>
+                                                <a href="" class="" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    data-bs-title="افزودن به علاقه مندی ها"><i class="bi bi-heart"></i></a>
+                                                <a href="" class="" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    data-bs-title="مشاهده سریع"><i class="bi bi-eye"></i></a>
+                                            </div>
                                         </div>
-                                        <div class="product-header-btn">
-                                            <a href="" class="" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="مقایسه"><i class="bi bi-shuffle"></i></a>
-                                            <a href="" class="" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="افزودن به علاقه مندی ها"><i class="bi bi-heart"></i></a>
-                                            <a href="" class="" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="مشاهده سریع"><i class="bi bi-eye"></i></a>
+                                        <div class="product-image">
+                                            <% if (p.images.length > 1) { %>
+                                                <img src="<%= p.images[0] %>" loading="lazy" alt=""
+                                                class="img-fluid one-image">
+                                                <img src="<%= p.images[1] %>" loading="lazy" alt=""
+                                                class="img-fluid two-image">
+                                            <% } else {%>
+                                                <img src="<%= p.images[0] %>" loading="lazy" alt=""
+                                                class="img-fluid one-image">
+                                                <img src="<%= p.images[0] %>" loading="lazy" alt=""
+                                                class="img-fluid two-image">
+                                            <% } %>
+                                            
                                         </div>
-                                    </div>
-                                    <div class="product-image">
-                                        <img src="assets/image/product/wach1.jpg" loading="lazy" alt=""
-                                            class="img-fluid one-image">
-                                        <img src="assets/image/product/wach2.jpg" loading="lazy" alt=""
-                                            class="img-fluid two-image">
-                                    </div>
-                                    <div class="product-title">
-                                        <div class="title">
-                                            <p class="text-overflow-1">ساعت هوشمند شیائومی</p>
-                                            <span class="text-muted text-overflow-1">Mibro Lite XPAW004
-                                                Smartwatch</span>
+                                        <div class="product-title">
+                                            <div class="title">
+                                                <p class="text-overflow-1"><%= p.persian_title %></p>
+                                                <span class="text-muted text-overflow-1"><%= p.english_title %></span>
+                                            </div>
+                                            <div class="rating">
+                                                <div class="number"><span class="text-muted font-12"><%= p.rate %></span></div>
+                                                <div class="icon"><i class="bi bi-star-fill"></i></div>
+                                            </div>
                                         </div>
-                                        <div class="rating">
-                                            <div class="number"><span class="text-muted font-12">(15+) 4.8</span></div>
-                                            <div class="icon"><i class="bi bi-star-fill"></i></div>
-                                        </div>
-                                    </div>
-                                    <div class="product-action">
-                                        <div class="price">
-                                            <p class="new-price">3,175,000 تومان</p>
-                                            <p class="old-price">6,500,000 تومان</p>
-                                        </div>
-                                        <div class="link">
-                                            <a href="" class="btn border-0 rounded-3 main-color-one-bg">
-                                                <i class="bi bi-basket text-white"></i>
-                                                <span class="text-white">خرید محصول</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="product-box ">
-                                    <div class="product-timer">
-                                        <div class="timer-label">
-                                            <span>40% تخفیف</span>
-                                        </div>
-                                        <div class="product-header-btn">
-                                            <a href="" class="" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="مقایسه"><i class="bi bi-shuffle"></i></a>
-                                            <a href="" class="" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="افزودن به علاقه مندی ها"><i class="bi bi-heart"></i></a>
-                                            <a href="" class="" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="مشاهده سریع"><i class="bi bi-eye"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="product-image">
-                                        <img src="assets/image/product/television1.jpg" loading="lazy" alt=""
-                                            class="img-fluid one-image">
-                                        <img src="assets/image/product/television2.jpg" loading="lazy" alt=""
-                                            class="img-fluid two-image">
-                                    </div>
-                                    <div class="product-title">
-                                        <div class="title">
-                                            <p class="text-overflow-1">ساعت هوشمند شیائومی</p>
-                                            <span class="text-muted text-overflow-1">Mibro Lite XPAW004
-                                                Smartwatch</span>
-                                        </div>
-                                        <div class="rating">
-                                            <div class="number"><span class="text-muted font-12">(15+) 4.8</span></div>
-                                            <div class="icon"><i class="bi bi-star-fill"></i></div>
-                                        </div>
-                                    </div>
-                                    <div class="product-action">
-                                        <div class="price">
-                                            <p class="new-price">3,175,000 تومان</p>
-                                            <p class="old-price">6,500,000 تومان</p>
-                                        </div>
-                                        <div class="link">
-                                            <a href="" class="btn border-0 rounded-3 main-color-one-bg">
-                                                <i class="bi bi-basket text-white"></i>
-                                                <span class="text-white">خرید محصول</span>
-                                            </a>
+                                        <div class="product-action">
+                                            <div class="price">
+                                                <% const newPrice = p.price * (100 - p.discount) / 100  %>
+                                                <p class="new-price"><%= newPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') %> تومان</p>
+                                                <p class="old-price"><%= p.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') %> تومان</p>
+                                            </div>
+                                            <div class="link">
+                                                <a href="" class="btn border-0 rounded-3 main-color-one-bg">
+                                                    <i class="bi bi-basket text-white"></i>
+                                                    <span class="text-white">خرید محصول</span>
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="product-box ">
-                                    <div class="product-timer">
-                                        <div class="timer-label">
-                                            <span>40% تخفیف</span>
-                                        </div>
-                                        <div class="product-header-btn">
-                                            <a href="" class="" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="مقایسه"><i class="bi bi-shuffle"></i></a>
-                                            <a href="" class="" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="افزودن به علاقه مندی ها"><i class="bi bi-heart"></i></a>
-                                            <a href="" class="" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="مشاهده سریع"><i class="bi bi-eye"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="product-image">
-                                        <img src="assets/image/product/product-image3.jpg" loading="lazy" alt=""
-                                            class="img-fluid one-image">
-                                        <img src="assets/image/product/product-image1.jpg" loading="lazy" alt=""
-                                            class="img-fluid two-image">
-                                    </div>
-                                    <div class="product-title">
-                                        <div class="title">
-                                            <p class="text-overflow-1">ساعت هوشمند شیائومی</p>
-                                            <span class="text-muted text-overflow-1">Mibro Lite XPAW004
-                                                Smartwatch</span>
-                                        </div>
-                                        <div class="rating">
-                                            <div class="number"><span class="text-muted font-12">(15+) 4.8</span></div>
-                                            <div class="icon"><i class="bi bi-star-fill"></i></div>
-                                        </div>
-                                    </div>
-                                    <div class="product-action">
-                                        <div class="price">
-                                            <p class="new-price">3,175,000 تومان</p>
-                                            <p class="old-price">6,500,000 تومان</p>
-                                        </div>
-                                        <div class="link">
-                                            <a href="" class="btn border-0 rounded-3 main-color-one-bg">
-                                                <i class="bi bi-basket text-white"></i>
-                                                <span class="text-white">خرید محصول</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="product-box ">
-                                    <div class="product-timer">
-                                        <div class="timer-label">
-                                            <span>40% تخفیف</span>
-                                        </div>
-                                        <div class="product-header-btn">
-                                            <a href="" class="" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="مقایسه"><i class="bi bi-shuffle"></i></a>
-                                            <a href="" class="" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="افزودن به علاقه مندی ها"><i class="bi bi-heart"></i></a>
-                                            <a href="" class="" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="مشاهده سریع"><i class="bi bi-eye"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="product-image">
-                                        <img src="assets/image/product/product-image2.jpg" loading="lazy" alt=""
-                                            class="img-fluid one-image">
-                                        <img src="assets/image/product/product-image4.jpg" loading="lazy" alt=""
-                                            class="img-fluid two-image">
-                                    </div>
-                                    <div class="product-title">
-                                        <div class="title">
-                                            <p class="text-overflow-1">ساعت هوشمند شیائومی</p>
-                                            <span class="text-muted text-overflow-1">Mibro Lite XPAW004
-                                                Smartwatch</span>
-                                        </div>
-                                        <div class="rating">
-                                            <div class="number"><span class="text-muted font-12">(15+) 4.8</span></div>
-                                            <div class="icon"><i class="bi bi-star-fill"></i></div>
-                                        </div>
-                                    </div>
-                                    <div class="product-action">
-                                        <div class="price">
-                                            <p class="new-price">3,175,000 تومان</p>
-                                            <p class="old-price">6,500,000 تومان</p>
-                                        </div>
-                                        <div class="link">
-                                            <a href="" class="btn border-0 rounded-3 main-color-one-bg">
-                                                <i class="bi bi-basket text-white"></i>
-                                                <span class="text-white">خرید محصول</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="product-box ">
-                                    <div class="product-timer">
-                                        <div class="timer-label">
-                                            <span>40% تخفیف</span>
-                                        </div>
-                                        <div class="product-header-btn">
-                                            <a href="" class="" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="مقایسه"><i class="bi bi-shuffle"></i></a>
-                                            <a href="" class="" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="افزودن به علاقه مندی ها"><i class="bi bi-heart"></i></a>
-                                            <a href="" class="" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="مشاهده سریع"><i class="bi bi-eye"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="product-image">
-                                        <img src="assets/image/product/product-image1.jpg" loading="lazy" alt=""
-                                            class="img-fluid one-image">
-                                        <img src="assets/image/product/product-image6.jpg" loading="lazy" alt=""
-                                            class="img-fluid two-image">
-                                    </div>
-                                    <div class="product-title">
-                                        <div class="title">
-                                            <p class="text-overflow-1">ساعت هوشمند شیائومی</p>
-                                            <span class="text-muted text-overflow-1">Mibro Lite XPAW004
-                                                Smartwatch</span>
-                                        </div>
-                                        <div class="rating">
-                                            <div class="number"><span class="text-muted font-12">(15+) 4.8</span></div>
-                                            <div class="icon"><i class="bi bi-star-fill"></i></div>
-                                        </div>
-                                    </div>
-                                    <div class="product-action">
-                                        <div class="price">
-                                            <p class="new-price">3,175,000 تومان</p>
-                                            <p class="old-price">6,500,000 تومان</p>
-                                        </div>
-                                        <div class="link">
-                                            <a href="" class="btn border-0 rounded-3 main-color-one-bg">
-                                                <i class="bi bi-basket text-white"></i>
-                                                <span class="text-white">خرید محصول</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="product-box ">
-                                    <div class="product-timer">
-                                        <div class="timer-label">
-                                            <span>40% تخفیف</span>
-                                        </div>
-                                        <div class="product-header-btn">
-                                            <a href="" class="" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="مقایسه"><i class="bi bi-shuffle"></i></a>
-                                            <a href="" class="" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="افزودن به علاقه مندی ها"><i class="bi bi-heart"></i></a>
-                                            <a href="" class="" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="مشاهده سریع"><i class="bi bi-eye"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="product-image">
-                                        <img src="assets/image/product/wach4.jpg" loading="lazy" alt=""
-                                            class="img-fluid one-image">
-                                        <img src="assets/image/product/wach3.jpg" loading="lazy" alt=""
-                                            class="img-fluid two-image">
-                                    </div>
-                                    <div class="product-title">
-                                        <div class="title">
-                                            <p class="text-overflow-1">ساعت هوشمند شیائومی</p>
-                                            <span class="text-muted text-overflow-1">Mibro Lite XPAW004
-                                                Smartwatch</span>
-                                        </div>
-                                        <div class="rating">
-                                            <div class="number"><span class="text-muted font-12">(15+) 4.8</span></div>
-                                            <div class="icon"><i class="bi bi-star-fill"></i></div>
-                                        </div>
-                                    </div>
-                                    <div class="product-action">
-                                        <div class="price">
-                                            <p class="new-price">3,175,000 تومان</p>
-                                            <p class="old-price">6,500,000 تومان</p>
-                                        </div>
-                                        <div class="link">
-                                            <a href="" class="btn border-0 rounded-3 main-color-one-bg">
-                                                <i class="bi bi-basket text-white"></i>
-                                                <span class="text-white">خرید محصول</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="product-box ">
-                                    <div class="product-timer">
-                                        <div class="timer-label">
-                                            <span>40% تخفیف</span>
-                                        </div>
-                                        <div class="product-header-btn">
-                                            <a href="" class="" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="مقایسه"><i class="bi bi-shuffle"></i></a>
-                                            <a href="" class="" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="افزودن به علاقه مندی ها"><i class="bi bi-heart"></i></a>
-                                            <a href="" class="" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="مشاهده سریع"><i class="bi bi-eye"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="product-image">
-                                        <img src="assets/image/product/wach3.jpg" loading="lazy" alt=""
-                                            class="img-fluid one-image">
-                                        <img src="assets/image/product/wach1.jpg" loading="lazy" alt=""
-                                            class="img-fluid two-image">
-                                    </div>
-                                    <div class="product-title">
-                                        <div class="title">
-                                            <p class="text-overflow-1">ساعت هوشمند شیائومی</p>
-                                            <span class="text-muted text-overflow-1">Mibro Lite XPAW004
-                                                Smartwatch</span>
-                                        </div>
-                                        <div class="rating">
-                                            <div class="number"><span class="text-muted font-12">(15+) 4.8</span></div>
-                                            <div class="icon"><i class="bi bi-star-fill"></i></div>
-                                        </div>
-                                    </div>
-                                    <div class="product-action">
-                                        <div class="price">
-                                            <p class="new-price">3,175,000 تومان</p>
-                                            <p class="old-price">6,500,000 تومان</p>
-                                        </div>
-                                        <div class="link">
-                                            <a href="" class="btn border-0 rounded-3 main-color-one-bg">
-                                                <i class="bi bi-basket text-white"></i>
-                                                <span class="text-white">خرید محصول</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="product-box ">
-                                    <div class="product-timer">
-                                        <div class="timer-label">
-                                            <span>40% تخفیف</span>
-                                        </div>
-                                        <div class="product-header-btn">
-                                            <a href="" class="" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="مقایسه"><i class="bi bi-shuffle"></i></a>
-                                            <a href="" class="" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="افزودن به علاقه مندی ها"><i class="bi bi-heart"></i></a>
-                                            <a href="" class="" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="مشاهده سریع"><i class="bi bi-eye"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="product-image">
-                                        <img src="assets/image/product/wach2.jpg" loading="lazy" alt=""
-                                            class="img-fluid one-image">
-                                        <img src="assets/image/product/wach1.jpg" loading="lazy" alt=""
-                                            class="img-fluid two-image">
-                                    </div>
-                                    <div class="product-title">
-                                        <div class="title">
-                                            <p class="text-overflow-1">ساعت هوشمند شیائومی</p>
-                                            <span class="text-muted text-overflow-1">Mibro Lite XPAW004
-                                                Smartwatch</span>
-                                        </div>
-                                        <div class="rating">
-                                            <div class="number"><span class="text-muted font-12">(15+) 4.8</span></div>
-                                            <div class="icon"><i class="bi bi-star-fill"></i></div>
-                                        </div>
-                                    </div>
-                                    <div class="product-action">
-                                        <div class="price">
-                                            <p class="new-price">3,175,000 تومان</p>
-                                            <p class="old-price">6,500,000 تومان</p>
-                                        </div>
-                                        <div class="link">
-                                            <a href="" class="btn border-0 rounded-3 main-color-one-bg">
-                                                <i class="bi bi-basket text-white"></i>
-                                                <span class="text-white">خرید محصول</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="product-box ">
-                                    <div class="product-timer">
-                                        <div class="timer-label">
-                                            <span>40% تخفیف</span>
-                                        </div>
-                                        <div class="product-header-btn">
-                                            <a href="" class="" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="مقایسه"><i class="bi bi-shuffle"></i></a>
-                                            <a href="" class="" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="افزودن به علاقه مندی ها"><i class="bi bi-heart"></i></a>
-                                            <a href="" class="" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="مشاهده سریع"><i class="bi bi-eye"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="product-image">
-                                        <img src="assets/image/product/product-image2.jpg" loading="lazy" alt=""
-                                            class="img-fluid one-image">
-                                        <img src="assets/image/product/product-image4.jpg" loading="lazy" alt=""
-                                            class="img-fluid two-image">
-                                    </div>
-                                    <div class="product-title">
-                                        <div class="title">
-                                            <p class="text-overflow-1">ساعت هوشمند شیائومی</p>
-                                            <span class="text-muted text-overflow-1">Mibro Lite XPAW004
-                                                Smartwatch</span>
-                                        </div>
-                                        <div class="rating">
-                                            <div class="number"><span class="text-muted font-12">(15+) 4.8</span></div>
-                                            <div class="icon"><i class="bi bi-star-fill"></i></div>
-                                        </div>
-                                    </div>
-                                    <div class="product-action">
-                                        <div class="price">
-                                            <p class="new-price">3,175,000 تومان</p>
-                                            <p class="old-price">6,500,000 تومان</p>
-                                        </div>
-                                        <div class="link">
-                                            <a href="" class="btn border-0 rounded-3 main-color-one-bg">
-                                                <i class="bi bi-basket text-white"></i>
-                                                <span class="text-white">خرید محصول</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <%}); %>
+                            
                             <div class="col-12">
                                 <div class="my-paginate my-4">
                                     <nav aria-label="Page navigation example">
@@ -921,7 +580,8 @@
     <%- include('partials/scriptTags') %>
 
     <!-- ==== range slider -->
-    <script src="assets/plugin/bootstrap-slider/bootstrap-slider.min.js"></script>
+    <script src="plugins/bootstrap-slider/bootstrap-slider.min.js"></script>
+    <script src="js/category.js"></script>
     <script>
         $(document).ready(function () {
             ////slider range

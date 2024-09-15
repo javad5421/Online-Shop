@@ -225,15 +225,15 @@
                                     </a>
                                     <ul class="main-menu mega-container">
                                         <% categories.forEach(title => { %>
-                                            <li class="main-menu-sub-active-li"><a href=""><i class="bi bi-phone"></i>
+                                            <li class="main-menu-sub-active-li"><a href="/products/category/<%=title.id%>"><i class="bi bi-phone"></i>
                                                     <%= title.name %></a>
                                                 <ul class="main-menu-sub back-menu"
                                                     style=" background: #fff url('assets/image/509-5092096_offering-high-quality-mobile-repair-service-main-image_prev_ui.png') no-repeat;">
                                                     <% title.children.forEach(header => { %>
-                                                        <li><a class="title my-flex-baseline" href=""><%= header.name %></a>
+                                                        <li><a class="title my-flex-baseline" href="/products/category/<%=header.id%>"><%= header.name %></a>
                                                         </li>
                                                         <% header.children.forEach(element => { %>
-                                                            <li><a href='<%=element.url %>' > <%= element.name %></a></li>
+                                                            <li><a href='/products/category/<%=element.id%>' > <%= element.name %></a></li>
                                                         <% }); %>
                                                     <% }); %>
                                                 </ul>

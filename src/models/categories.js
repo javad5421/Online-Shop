@@ -1,6 +1,7 @@
 import {pool} from '../../config/db.js';
 
 //get all category items from category table
+//used for populating category menu
 async function getAllCategory(){
     try {
         const result = await pool.query("SELECT * FROM category");
@@ -40,6 +41,28 @@ async function NestedCategoriesSecondLayer(id){
     }
 }
 
+//this method gets all categories and all nested categories
+async function getAllCategoryIds(category_id) {
+    const query = `
+    WITH RECURSIVE subcategories AS (
+      SELECT id, parent_id, name
+      FROM category
+      WHERE id = $1
+      UNION ALL
+      SELECT c.id, c.parent_id, c.name
+      FROM category c
+      INNER JOIN subcategories sc ON c.parent_id = sc.id
+    )
+    SELECT * FROM subcategories;
+    `;
+    const result = await pool.query(query,[category_id]);
+    if (result.rows.length === 0) {
+        console.log('cant find any category id');
+        return;
+    } 
+    return result;
+}
+
 async function removeCategoryById(id) {
     try {
         await pool.query('DELETE FROM category WHERE id = $1 OR parent_id = $1', [id]);
@@ -59,4 +82,4 @@ async function addCategoryToDb(title, parent_id){
     }
 }
 
-export {getAllCategory, NestedCategoriesSecondLayer, removeCategoryById, addCategoryToDb};
+export {getAllCategory, NestedCategoriesSecondLayer, removeCategoryById, addCategoryToDb, getAllCategoryIds};

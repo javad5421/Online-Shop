@@ -96,7 +96,7 @@ async function getDiscounted(count) {
         throw error;
     }
 }
-
+//lacks reviews to append to the final object
 async function getProducts(hasDetail = false, hasImage = false, hasRate = false, hasColor = false, count = 0, product_id = -1, category_id = []) {
     let query;
     let queryParams = [];   
@@ -108,13 +108,13 @@ async function getProducts(hasDetail = false, hasImage = false, hasRate = false,
     }
 
     if (category_id.length != []) {
-        console.log('categoryID' ,category_id);
+        //console.log('categoryID' ,category_id);
 
         if (queryParams.length === 0){
-            query += ' WHERE category = ANY($1)';
+            query += ' WHERE category = ANY($1:int[])';
             queryParams.push(category_id);
         } else {
-            query += ' AND category = ANY($2)';
+            query += ' AND category = ANY($2:int[])';
             queryParams.push(category_id);
         }
     }
@@ -124,9 +124,9 @@ async function getProducts(hasDetail = false, hasImage = false, hasRate = false,
     if(count > 0){
         query += ` LIMIT $${queryParams.length + 1}`;
         
-        queryParams.push(count);
+        queryParams.push(parseInt(count));
     }
-    console.log(query + " : " + queryParams , '  end params');
+
     let products = null;
     try {
         const response = await pool.query(query, queryParams);
