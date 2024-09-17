@@ -206,12 +206,12 @@
                                             <div class="row">
                                                 <div class="col-6">
                                                     <input type="number" name="" min="1500000"
-                                                        class="form-control input-range-filter"
+                                                        class="form-control input-range-filter price-range-min"
                                                         placeholder="از 1500000">
                                                 </div>
                                                 <div class="col-6">
                                                     <input type="number" name=""  min="1500000" max="3000000"
-                                                        class="form-control input-range-filter"
+                                                        class="form-control input-range-filter price-range-max"
                                                         placeholder="از 3000000">
                                                 </div>
                                             </div>
@@ -267,7 +267,7 @@
                                     </div>
                                 </div>
                                 <div class="filter-item text-center">
-                                    <a href="" class="btn-outline-site">اعمال فیلتر</a>
+                                    <a href="" class="btn-outline-site btn-applyfilter">اعمال فیلتر</a>
                                 </div>
                             </div>
                         </div>
@@ -430,7 +430,7 @@
                                 </div>
                             </div>
                             <div class="filter-item text-center">
-                                <a href="" class="btn-outline-site">اعمال فیلتر</a>
+                                <a href="" class="btn-outline-site btn-applyfilter">اعمال فیلتر</a>
                             </div>
                         </div>
                     </div>
@@ -480,8 +480,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="category-items">
-                        <div class="row g-3">
+                    <div class="category-items"> <!-- all products -->
+                        <div id="product_holder" class="row g-3">
                             <% products.forEach(p => {%>
                                 <div class="col-lg-4">
                                     <div class="product-box ">
