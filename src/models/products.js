@@ -111,10 +111,10 @@ async function getProducts(hasDetail = false, hasImage = false, hasRate = false,
         //console.log('categoryID' ,category_id);
 
         if (queryParams.length === 0){
-            query += ' WHERE category = ANY($1:int[])';
+            query += ' WHERE category = ANY($1::int[])';
             queryParams.push(category_id);
         } else {
-            query += ' AND category = ANY($2:int[])';
+            query += ' AND category = ANY($2::int[])';
             queryParams.push(category_id);
         }
     }
