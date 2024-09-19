@@ -39,7 +39,7 @@
                                                         <button class="btn" type="button" data-bs-toggle="modal" data-bs-target="#<%= title.id %>">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
                                                                 <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
-                                                              </svg>
+                                                            </svg>
                                                         </button>
                                                         
                                                         
@@ -58,7 +58,7 @@
                                                             <li><a class="title my-flex-baseline" href=""><%= header.name %></a>
                                                             </li>
                                                             <!-- this form is for adding new item to category under this itme -->
-                                                            <button class="btn" type="button" data-bs-toggle="modal" data-bs-target="#<%= title.id %>">
+                                                            <button class="btn" type="button" data-bs-toggle="modal" data-bs-target="#<%= header.id %>">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
                                                                     <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
                                                                   </svg>
@@ -97,7 +97,6 @@
                                         </div>
                                     </ul>
                                 </li>
-                                
                             </ul>
                         </div>
                     </div>
@@ -116,56 +115,91 @@
         </div>
     </div>
     <!-- end category editing -->
-   
-    <% categories.forEach(title => {%>
-        <div class="modal fade" id="<%= title.id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="exampleModalLabel">دسته بندی جدید</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form class="mb-0" action="admin/addcategory" method="post">
-            
-                    <div class="modal-body">
-                        <label class="form-control" for="input<%= title.id %>">نام زیر دسته جدید</label>
-                        <input type="text" class="form-control" id="input<%= title.id %>"  name="title" required>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
-                      <button type="submit" class="btn btn-primary" name="parentitem" value="<%= title.id %>">اضافه کردن</button>
-                    </div>
-                </form>                
-
-              </div>
-            </div>
-          </div>
-
-          <% title.children.forEach(header => {%>
-            <div class="modal fade" id="<%= header.id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="container-fluid">
+        <% categories.forEach(title => {%>
+            <div class="modal fade" id="<%= title.id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h1 class="modal-title fs-5" id="exampleModalLabel">دسته بندی جدید</h1>
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">منو اصلی: <%= title.name %></h1>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <form class="mb-0" action="admin/addcategory" method="post">
                 
                         <div class="modal-body">
-                            <label class="form-control" for="input<%= header.id %>">نام زیر دسته جدید</label>
-                            <input type="text" class="form-control" id="input<%= header.id %>"  name="title" required>
+                            <p>برای ایجاد زیرمنو جدید نام زیرمنو مورد نظر را وارد کنید</p>
+                            <label class="" for="input<%= title.id %>">نام زیر منو جدید</label>
+                            <input type="text" class="form-control" id="input<%= title.id %>"  name="title" required>
+                            <div class="row g-3"> <!-- ------------------------------------------------------------------------------------------------ -->
+                                <div class="col-md-12">
+                                    <hr class="border-primary-subtle">
+                                    <h2>زیر منو ها:</h2>
+                                    <% title.children.forEach(header => {%>
+                                        <div class="d-flex justify-content-around align-items-center">
+                                            <p class="title my-flex-baseline"><%= header.name %></p>
+                                                                                        
+                                            <!-- button for removing category -->
+                                            <form class="mb-0" action="admin/editcategory" method="post">
+                                                <button class="btn-close ms-2 " type="submit" name="removeitem" value="<%= header.id %>"></button>
+                                            </form>
+                                        </div>
+                                    <%}); %>
+                                </div>
+                            </div>
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
-                          <button type="submit" class="btn btn-primary" name="parentitem" value="<%= header.id %>">اضافه کردن</button>
+                          <button type="submit" class="btn btn-primary" name="parentitem" value="<%= title.id %>">اضافه کردن</button>
                         </div>
                     </form>                
-    
                   </div>
                 </div>
               </div>
-          <%}); %>
-    <%}); %>
+    
+            <% title.children.forEach(header => {%>
+                <div class="modal fade" id="<%= header.id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="exampleModalLabel">دسته بندی: <%= header.name %></h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form class="mb-0" action="admin/addcategory" method="post">
+                    
+                            <div class="modal-body">
+                                <p>برای ایجاد زیرمنو جدید نام زیرمنو مورد نظر را وارد کنید</p>
+                                <label class="" for="input<%= header.id %>">نام زیر دسته جدید</label>
+                                <input type="text" class="form-control" id="input<%= header.id %>"  name="title" required>
+                                <div class="row g-3"> <!-- ------------------------------------------------------------------------------------------------ -->
+                                    <div class="col-md-12">
+                                        <hr class="border-primary-subtle">
+                                        <h2>زیر منو ها:</h2>
+                                        <% header.children.forEach(item => {%>
+                                            <div class="d-flex justify-content-around align-items-center">
+                                                <p class="title my-flex-baseline"><%= item.name %></p>
+                                                                                            
+                                                <!-- button for removing category -->
+                                                <form class="mb-0" action="admin/editcategory" method="post">
+                                                    <button class="btn-close ms-2 " type="submit" name="removeitem" value="<%= item.id %>"></button>
+                                                </form>
+                                            </div>
+                                        <%}); %>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
+                              <button type="submit" class="btn btn-primary" name="parentitem" value="<%= header.id %>">اضافه کردن</button>
+                            </div>
+                        </form>                
+        
+                      </div>
+                    </div>
+                </div>
+            <%}); %>
+        <%}); %>
+    </div>
+    
       
       <!-- Modal -->
       
@@ -181,7 +215,7 @@
 
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-fullscreen" >
-              <div class="modal-content" style="background-color: #f5f5dc;">
+              <div class="modal-content" style="background-color: #f9f9e8;">
                 <div class="modal-header">
                   <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
