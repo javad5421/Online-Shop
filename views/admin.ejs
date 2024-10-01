@@ -124,6 +124,15 @@
                       <h1 class="modal-title fs-5" id="exampleModalLabel">منو اصلی: <%= title.name %></h1>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+                    <form class="mb-0" action="admin/renamecategory" method="post">
+                        <div class="modal-body">
+                            <p>برای تغییر نام این منو، نام جدید را وارد کنید و روی تغییر نام کلیک کنید</p>
+                            <label class="" for="input-cat-rename-id<%= title.id %>">نام جدید</label>
+                            <input type="text" class="form-control" id="input-cat-rename-id<%= title.id %>"  name="newname" placeholder="<%= title.name %>" required>
+                            <input type="hidden" class="form-control" id="input-cat-id<%= title.id %>"  name="categoryId" value="<%= title.id %>">
+                            <button type="submit" class="btn btn-danger">تغییر نام</button>
+                        </div>
+                    </form>
                     <form class="mb-0" action="admin/addcategory" method="post">
                 
                         <div class="modal-body">
@@ -154,22 +163,7 @@
                     </form>  
 
                     <!-- edit category name -->
-                    <form class="mb-0" action="admin/renamecategory" method="post">
-                
-                        <div class="modal-body">
-                            <p>برای تغییر نام این منو، نام جدید را وارد کنید و روی تغییر نام کلیک کنید</p>
-                            <label class="" for="input<%= title.id %>">نام جدید</label>
-                            <input type="text" class="form-control" id="input-cat-rename-id<%= title.id %>"  name="title" required>
-                            <input type="hidden" class="form-control" id="input-cat-rename-id<%= title.id %>"  name="categoryId" value="<%= title.id %>">
-
-                            <div class="row g-3"> <!-- ------------------------------------------------------------------------------------------------ -->
-                                <div class="col-md-12">
-                                    <hr class="border-primary-subtle">
-                                </div>
-                            </div>
-                            <hr>
-                        </div>
-                    </form>                
+                                    
                   </div>
                 </div>
               </div>
