@@ -37,9 +37,9 @@
                                                     <a href=""><i class="bi bi-phone align-self-start"></i>
                                                         <%= title.name %></a>
                                                         <button class="btn" type="button" data-bs-toggle="modal" data-bs-target="#<%= title.id %>">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-                                                                <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
-                                                            </svg>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                                                                <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
+                                                              </svg>
                                                         </button>
                                                         
                                                         
@@ -59,9 +59,9 @@
                                                             </li>
                                                             <!-- this form is for adding new item to category under this itme -->
                                                             <button class="btn" type="button" data-bs-toggle="modal" data-bs-target="#<%= header.id %>">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-                                                                    <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
-                                                                  </svg>
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                                                                    <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
+                                                                </svg>
                                                             </button>
                                                             
                                                             <!-- button for removing category -->
@@ -151,6 +151,24 @@
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
                           <button type="submit" class="btn btn-primary" name="parentitem" value="<%= title.id %>">اضافه کردن</button>
                         </div>
+                    </form>  
+
+                    <!-- edit category name -->
+                    <form class="mb-0" action="admin/renamecategory" method="post">
+                
+                        <div class="modal-body">
+                            <p>برای تغییر نام این منو، نام جدید را وارد کنید و روی تغییر نام کلیک کنید</p>
+                            <label class="" for="input<%= title.id %>">نام جدید</label>
+                            <input type="text" class="form-control" id="input-cat-rename-id<%= title.id %>"  name="title" required>
+                            <input type="hidden" class="form-control" id="input-cat-rename-id<%= title.id %>"  name="categoryId" value="<%= title.id %>">
+
+                            <div class="row g-3"> <!-- ------------------------------------------------------------------------------------------------ -->
+                                <div class="col-md-12">
+                                    <hr class="border-primary-subtle">
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
                     </form>                
                   </div>
                 </div>
@@ -205,19 +223,28 @@
       
     <!-- add product -->
     <div class="container-fluid">
-        <div>
-            <br>
-            <br>
-            <br>
-            <label for="">برای اضافه کردن محصول جدید از طریق فرم زیر اطلاعات محصول را اضافه  کنید</label>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">اضافه کردن محصول جدید</button>
+        <div class="row g-3">
+            <div class="col-md-12">
+                <br>
+                <br>
+                <br>
+                <label for=""><span style="font-weight: bolder;">اضافه کردن محتوا به سایت(محصول، بیلبورد و ...)</span></label>
+                <br>
+            </div>
+            <div class="col-md-3">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal">اضافه کردن محصول جدید</button>
+            </div>
+            <div class="col-md-3">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">اضافه کردن بیلبورد جدید</button>
+            </div>
         </div>
-
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+       
+        <!-- product modal -->
+        <div class="modal fade" id="productModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-fullscreen" >
-              <div class="modal-content" style="background-color: #f9f9e8;">
+              <div class="modal-content" style="background-color: #e7f7f8ee;">
                 <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                  <h1 class="modal-title fs-5" id="staticBackdropLabel">فرم ایجاد محصول</h1>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -363,47 +390,64 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Understood</button>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        
+        
+        <!-- billboard modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="row g-3" id="addbillboard-form">
+                        <div class="col-md-12">
+                            <h3>اضافه کردن بیلبورد</h3>
+                        </div>
+                        <div class="col-md-12">
+                            <div id="billboard-preview"></div>
+                        </div>
+                        <div class="col-md-4">
+                            <input class="form-control" type="file" accept="image/*" id="billboard-images">
+                        </div>
+                        <div class="col-md-12"></div>
+                        <div class="col-md-4">
+                            <p>یک نام برای بیلبورد انتخاب کنید (به کاربر نمایش داده نمیشود)</p>
+                            <input name="name" type="text" class="form-control">
+                        </div>
+                        <div class="col-md-4">
+                            <p>نوع بیلبورد را انتخاب کنید</p>
+                            <br>
+                            <select name="billboard_type" class="form-control" id="">
+                                <option value="big">big</option>
+                                <option value="medium">medium</option>
+                                <option value="small">small</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <p>یک url برای مقصد این بیلبورد انتخاب کنید</p>
+                            <br>
+                            <input name="billboard_url" type="url" class="form-control" id="billboard_url">
+                        </div>
+                        <div class="col-md-12">
+                            <button class="btn btn-primary" type="submit">اضافه کردن بیلبورد جدید</button>
+                            <hr>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
               </div>
             </div>
           </div>
         <hr>
-        
-
-        <!--add billboard form-->
-        <form class="row g-3" id="addbillboard-form">
-            <div class="col-md-12">
-                <h3>اضافه کردن بیلبورد</h3>
-            </div>
-            <div class="col-md-12">
-                <div id="billboard-preview"></div>
-            </div>
-            <div class="col-md-4">
-                <input class="form-control" type="file" accept="image/*" id="billboard-images">
-            </div>
-            <div class="col-md-12"></div>
-            <div class="col-md-4">
-                <p>یک نام برای بیلبورد انتخاب کنید (به کاربر نمایش داده نمیشود)</p>
-                <input name="name" type="text" class="form-control">
-            </div>
-            <div class="col-md-4">
-                <p>نوع بیلبورد را انتخاب کنید</p>
-                <select name="billboard_type" class="form-control" id="">
-                    <option value="big">big</option>
-                    <option value="medium">medium</option>
-                    <option value="small">small</option>
-                </select>
-            </div>
-            <div class="col-md-4">
-                <p>یک url برای مقصد این بیلبورد انتخاب کنید</p>
-                <input name="billboard_url" type="url" class="form-control" id="billboard_url">
-            </div>
-            <div class="col-md-12">
-                <button class="btn btn-primary" type="submit">اضافه کردن بیلبورد جدید</button>
-                <hr>
-            </div>
-        </form>
     </div>
 
     <!-- end add product -->
