@@ -1,6 +1,6 @@
 import express from 'express';
 import {getAdminPage} from '../src/controllers/adminHOmePage_Controller.js';
-import { editcategory, addCategory, getNestedCategories } from '../src/controllers/admin_category_controller.js';
+import { editcategory, addCategory, renameCategory, getNestedCategories } from '../src/controllers/admin_category_controller.js';
 import {uploadImage} from "../src/middlewares/uploadImagesMiddleware.js";
 import { addNewProduct_controller} from '../src/controllers/admin_addProduct.js';
 import { addNewBillboard } from '../src/controllers/newBillboard_Controller.js';
@@ -19,7 +19,8 @@ router.get("/getnestedcategories", getNestedCategories);
 //handle category edit
 router.post("/editcategory", editcategory);
 router.post("/addcategory", addCategory);
+router.post("/renamecategory", renameCategory);
 
 router.post('/addproduct', uploadImage(productImage_path).array('images'), addNewProduct_controller);
 router.post('/addbillboard', uploadImage(billboardImage_path).array('image'), addNewBillboard);
-export default router;
+export default router; 

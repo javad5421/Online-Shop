@@ -1,4 +1,4 @@
-import { removeCategoryById, addCategoryToDb, getAllCategory } from '../models/categories.js';
+import { removeCategoryById, addCategoryToDb, getAllCategory, renameCategoryById } from '../models/categories.js';
 import {buildNestedMenu} from '../services/nestedMenu.js';
 
 async function editcategory(req, res, next) {
@@ -33,6 +33,19 @@ async function addCategory(req, res, next) {
     }
 }
 
+async function renameCategory(req, res, next) {
+    console.log('ehem !!!');
+    try {
+        const catId = parseInt(req.body.categoryId);
+        const newName = req.body.newname;
+        await renameCategoryById(catId, newName);
+        res.redirect('/admin');
+    } catch (error) {
+        console.log('message: ' + error.message + " stack: " + error.stack);
+        next(error);
+    }
+}
+
 async function getNestedCategories(req, res, next){
     try {
         const response = await getAllCategory();
@@ -43,4 +56,4 @@ async function getNestedCategories(req, res, next){
     }
 }
 
-export { editcategory, addCategory, getNestedCategories};
+export { editcategory, addCategory, renameCategory, getNestedCategories};

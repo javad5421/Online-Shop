@@ -82,4 +82,24 @@ async function addCategoryToDb(title, parent_id){
     }
 }
 
-export {getAllCategory, NestedCategoriesSecondLayer, removeCategoryById, addCategoryToDb, getAllCategoryIds};
+async function renameCategoryById(id, newName){
+    console.log('heyyyyy');
+    try {
+        const result = await pool.query('UPDATE category SET name = $1 WHERE id = $2 RETURNING *', [newName, id]);
+        if (result.rows[0].name == newName) {
+            console.log('\n\n\n*****\nsuccessfully done\n*****\n\n\n');
+            return result.rows[0];
+        }
+        else if (result.rows.length === 0) {
+            console.error('nothing returned from db');
+        }
+        else{
+            console.error('an error accured while renaming the category');
+        }
+    } catch (error) {
+        console.log(error.message + " stack: " + error.stack);
+        throw new Error(error);
+    }
+}
+
+export {getAllCategory, NestedCategoriesSecondLayer, removeCategoryById, addCategoryToDb, getAllCategoryIds, renameCategoryById};
