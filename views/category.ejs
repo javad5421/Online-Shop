@@ -201,18 +201,18 @@
                                     <div class="filter-item-content">
                                         <form action="" method="get">
                                             <div class="form-group">
-                                                <input type="range" class="catRange" name="range[]">
+                                                <div class="price-slider"></div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-6">
-                                                    <input type="number" name="" min="1500000"
-                                                        class="form-control input-range-filter price-range-min"
-                                                        placeholder="از 1500000">
+                                                    <label for="price-range-max-screen">بیش ترین</label>
+                                                    <input type="number"  id="price-range-max-screen" name=""  min="1500000"
+                                                        class="form-control input-range-filter price-range-max" placeholder="از 1500000">
                                                 </div>
                                                 <div class="col-6">
-                                                    <input type="number" name=""  min="1500000" max="3000000"
-                                                        class="form-control input-range-filter price-range-max"
-                                                        placeholder="از 3000000">
+                                                    <label for="price-range-min-screen">کم ترین</label>
+                                                    <input type="number" name="" id="price-range-min-screen" min="1500000" max="3000000"
+                                                        class="form-control input-range-filter price-range-min" placeholder="از 3000000">
                                                 </div>
                                             </div>
                                         </form>
@@ -366,16 +366,18 @@
                                 <div class="filter-item-content">
                                     <form action="" method="get">
                                         <div class="form-group">
-                                            <input type="range" class="catRange" name="range[]">
+                                            <div class="price-slider"></div>
                                         </div>
                                         <div class="row">
                                             <div class="col-6">
-                                                <input type="number" name=""  min="1500000"
-                                                    class="form-control input-range-filter" placeholder="از 1500000">
+                                                <label for="price-range-max-screen">بیش ترین</label>
+                                                <input type="number"  id="price-range-max-screen" name=""  min="1500000"
+                                                    class="form-control input-range-filter price-range-max" placeholder="از 1500000">
                                             </div>
                                             <div class="col-6">
-                                                <input type="number" name="" id="" min="1500000" max="3000000"
-                                                    class="form-control input-range-filter" placeholder="از 3000000">
+                                                <label for="price-range-min-screen">کم ترین</label>
+                                                <input type="number" name="" id="price-range-min-screen" min="1500000" max="3000000"
+                                                    class="form-control input-range-filter price-range-min" placeholder="از 3000000">
                                             </div>
                                         </div>
                                     </form>
@@ -570,9 +572,9 @@
             </div>
         </div>
     </div>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.1/nouislider.min.js"></script>
+    <script src="/plugins/dualSlider/dualSlider.js"></script>
     <!-- end content -->
-
     <%- include('partials/footer') %>
     <%- include('partials/mobileMenu') %>
     <%- include('partials/cartCanvas') %>
@@ -581,7 +583,6 @@
 
     <!-- ==== range slider -->
     <script src="plugins/bootstrap-slider/bootstrap-slider.min.js"></script>
-    <script src="js/category.js"></script>
     <script>
         $(document).ready(function () {
             ////slider range

@@ -1,0 +1,70 @@
+.noUi-target{
+    background-color: #e9ecef; /* Bootstrap's gray-100 */
+    border-radius: 10px;
+    
+    position: relative;
+}
+.noUi-base{
+
+}
+
+
+
+.noUi-handle{
+    background-color: #9b9b9b; /* Handle color */
+    border: 2px solid #0056b3; /* Optional border */
+    border-radius: 40%; /* Make it circular */
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    top: 8px; /* Move the handle to center it vertically on the track */
+    position:absolute;
+}
+
+.noUi-state-tap{
+
+}
+
+.noUi-connect{
+    background-color: #0040ff; /* Bootstrap's success color */
+    height: 100%;
+}
+
+.noUi-tooltip {
+    background-color: #007bff;
+    color: #fff;
+    font-size: 12px;
+    border-radius: 4px;
+    padding: 3px 6px;
+}
+
+.noUi-handle:hover {
+    transform: scale(1.2); /* Slightly enlarge the handle on hover */
+  }
+  
+/* Responsive handle */
+@media (max-width: 768px) {
+  .noUi-handle {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media (max-width: 576px) {
+  .noUi-handle {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+@media (max-width: 576px) {
+    .noUi-handle {
+        width: 16px;
+        height: 16px;
+    }
+
+    .noUi-tooltip {
+        font-size: 10px;
+        padding: 2px 4px;
+    }
+}

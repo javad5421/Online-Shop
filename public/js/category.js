@@ -1,7 +1,8 @@
-//filter html elements
-const priceRangeMin = document.querySelectorAll('price-range-min');
-const priceRangeMax = document.querySelectorAll('price-range-max');
-
+//filter html elements (because we have two element one for mobile we use plurals)
+//price elements
+const priceRangeMin = document.querySelectorAll('.price-range-min');
+const priceRangeMax = document.querySelectorAll('.price-range-max');
+const priceSlider = document.querySelectorAll('.price-slider');
 
 
 /**
@@ -140,5 +141,21 @@ applyFilterButtons.forEach(btn => {
     btn.addEventListener('click', function(e){
         //get all filter options values
         
+    })
+})
+
+//everything works here
+document.addEventListener("DOMContentLoaded", function () {
+    //initialize price slider
+    priceSlider.forEach(slider => {
+        alert('hiiiii');
+        noUiSlider.create(slider, {
+            start:[20,100],
+            connect:true,
+            range:{
+                'min':0,
+                'max':1000
+            }
+        })
     })
 })
