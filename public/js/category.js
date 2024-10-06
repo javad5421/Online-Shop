@@ -1,10 +1,3 @@
-//filter html elements (because we have two element one for mobile we use plurals)
-//price elements
-const priceRangeMin = document.querySelectorAll('.price-range-min');
-const priceRangeMax = document.querySelectorAll('.price-range-max');
-const priceSlider = document.querySelectorAll('.price-slider');
-
-
 /**
  * parant node of all products in page 
  * @type {HTMLElement}
@@ -13,6 +6,7 @@ const product_holder = document.getElementById('product_holder');
 
 /**
  * array of html buttons that use for apply filter
+ * mobile and other screens
  * @type {NodeListOf<HTMLElement>}
  */
 const applyFilterButtons = document.querySelectorAll('.btn-applyfilter');
@@ -23,11 +17,26 @@ const applyFilterButtons = document.querySelectorAll('.btn-applyfilter');
 */
 let products;
 
+
+async function getProducts() {
+    try {
+        const response = await fetch('');
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+    } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+        alert('An error occurred while submitting the form');
+    }
+}
+
 /**
  * update products base on new filters
  * @param {string} queryString include all filter parameters such as color or category
  */
-async function updateFilter(queryString){
+async function updateBaseFilter(queryString){
     //********* */
     //make url object sutable for getting product
     const url = `/filter?${queryString}`;
@@ -140,22 +149,16 @@ async function updateFilter(queryString){
 applyFilterButtons.forEach(btn => {
     btn.addEventListener('click', function(e){
         //get all filter options values
+
+        const minPrice = document.querySelector('price-range-min');
+        const maxPrice = document.querySelector("price-range-max");
+
         
     })
 })
 
 //everything works here
 document.addEventListener("DOMContentLoaded", function () {
-    //initialize price slider
-    priceSlider.forEach(slider => {
-        alert('hiiiii');
-        noUiSlider.create(slider, {
-            start:[20,100],
-            connect:true,
-            range:{
-                'min':0,
-                'max':1000
-            }
-        })
-    })
+    
+    
 })

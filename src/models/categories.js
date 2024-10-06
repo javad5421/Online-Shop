@@ -42,6 +42,12 @@ async function NestedCategoriesSecondLayer(id){
 }
 
 //this method gets all categories and all nested categories
+/**
+ * recursively get all nested categories of selected category
+ * includes base category it self
+ * @param {*} category_id 
+ * @returns all sub categories
+ */
 async function getAllCategoryIds(category_id) {
     const query = `
     WITH RECURSIVE subcategories AS (
@@ -60,7 +66,7 @@ async function getAllCategoryIds(category_id) {
         console.log('cant find any category id');
         return;
     } 
-    return result;
+    return result.rows;
 }
 
 async function removeCategoryById(id) {

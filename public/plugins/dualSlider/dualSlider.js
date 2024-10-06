@@ -60,15 +60,18 @@ function evaluateSlider(min, max, step){
         })
     })
 
-    minValueDisplays.forEach('input', function () {
-        this.value = this.value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    minValueDisplays.forEach(input => {
+        input.addEventListener('input', function () {
+            this.value = this.value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        })
     })
 
-    maxValueDisplays.forEach('input', function () {
-        this.value = this.value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    maxValueDisplays.forEach(input => {
+        input.addEventListener('input', function () {
+            this.value = this.value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        })
     })
 }
 document.addEventListener("DOMContentLoaded", function () {
     evaluateSlider(100, 1000000000,10000);
-    
 });

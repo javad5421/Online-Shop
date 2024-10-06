@@ -145,54 +145,22 @@
                                     <h5 class="filter-item-title">دسته بندی ها</h5>
                                     <div class="filter-item-content">
                                         <form action="">
-                                            <div
-                                                class="d-flex align-items-center justify-content-between flex-wrap mb-3">
-                                                <div class="form-check">
-                                                    <label for="colorCheck1" class="form-check-label">موبایل <i
-                                                            class="bi bi-phone me-1"></i></label>
-                                                    <input type="checkbox" name="" id="colorCheck1"
-                                                        class="form-check-input">
-                                                </div>
-                                                <div>
-                                                    <span class="fw-bold font-14">(27)</span>
-                                                </div>
-                                            </div>
-                                            <div
-                                                class="d-flex align-items-center justify-content-between flex-wrap mb-3">
-                                                <div class="form-check">
-                                                    <label for="colorCheck5" class="form-check-label">ایرپاد <i
-                                                            class="bi bi-earbuds me-1"></i></label>
-                                                    <input type="checkbox" name="" id="colorCheck5"
-                                                        class="form-check-input">
-                                                </div>
-                                                <div>
-                                                    <span class="fw-bold font-14">(32)</span>
-                                                </div>
-                                            </div>
-                                            <div
-                                                class="d-flex align-items-center justify-content-between flex-wrap mb-3">
-                                                <div class="form-check">
-                                                    <label for="colorCheck4" class="form-check-label">تبلت <i
-                                                            class="bi bi-tablet me-1"></i></label>
-                                                    <input type="checkbox" name="" id="colorCheck4"
-                                                        class="form-check-input">
-                                                </div>
-                                                <div>
-                                                    <span class="fw-bold font-14">(14)</span>
-                                                </div>
-                                            </div>
-                                            <div
-                                                class="d-flex align-items-center justify-content-between flex-wrap mb-3">
-                                                <div class="form-check">
-                                                    <label for="colorCheck3" class="form-check-label">هدست <i
-                                                            class="bi bi-headset me-1"></i></label>
-                                                    <input type="checkbox" name="" id="colorCheck3"
-                                                        class="form-check-input">
-                                                </div>
-                                                <div>
-                                                    <span class="fw-bold font-14">(8)</span>
-                                                </div>
-                                            </div>
+                                            <% if(locals.subCategories) {%>
+                                                <% subCategories.forEach(cat => {%>
+                                                    <div class="d-flex align-items-center justify-content-between flex-wrap mb-3">
+                                                        <div class="form-check">
+                                                            <label for="mobilecat<%= cat.id %>" class="form-check-label"><%= cat.name %><i
+                                                                    class="bi me-1"></i></label>
+                                                            <input type="checkbox" name="" id="mobilecat<%= cat.id %>"
+                                                                class="form-check-input">
+                                                        </div>
+                                                        <div>
+                                                            <!--shows a number (number of products in a category)-->
+                                                            <span class="fw-bold font-14"></span>
+                                                        </div>
+                                                    </div>
+                                                <%})%>                                                
+                                            <% } %> 
                                         </form>
                                     </div>
                                 </div>
@@ -222,47 +190,20 @@
                                     <h5 class="filter-item-title">رنگ محصول</h5>
                                     <div class="filter-item-content">
                                         <div class="product-meta-color-items">
-                                            <input type="radio" class="btn-check" name="options" id="option1"
-                                                autocomplete="off" checked>
-                                            <label class="btn btt-light" for="option1">
-                                                <span style="background-color: #c00;"></span>
-                                                قرمز
-                                            </label>
-
-                                            <input type="radio" class="btn-check" name="options" id="option2"
-                                                autocomplete="off">
-                                            <label class="btn btt-light" for="option2">
-                                                <span style="background-color: #111;"></span>
-                                                مشکی
-                                            </label>
-
-                                            <input type="radio" class="btn-check" name="options" id="option3"
-                                                autocomplete="off">
-                                            <label class="btn btt-light" for="option3">
-                                                <span style="background-color: #00cc5f;"></span>
-                                                سبز
-                                            </label>
-
-                                            <input type="radio" class="btn-check" name="options" id="option4"
-                                                autocomplete="off">
-                                            <label class="btn btt-light" for="option4">
-                                                <span style="background-color: #1b69f0;"></span>
-                                                آبی
-                                            </label>
-
-                                            <input type="radio" class="btn-check" name="options" id="option5"
-                                                autocomplete="off">
-                                            <label class="btn btt-light" for="option5">
-                                                <span style="background-color: #891bf0;"></span>
-                                                بنفش
-                                            </label>
-
-                                            <input type="radio" class="btn-check" name="options" id="option6"
-                                                autocomplete="off">
-                                            <label class="btn btt-light" for="option6">
-                                                <span style="background-color: #f0501b;"></span>
-                                                نارنجی
-                                            </label>
+                                            <% const addedColorsMobile = [] %>
+                                            <% if (locals.colors) { %>                                             
+                                                <% colors.forEach(color => {%>
+                                                    <% if (!addedColorsMobile.includes(color.name)) { %>
+                                                        <% addedColorsMobile.push(color.name) %>                                             
+                                                        <input type="radio" class="btn-check" name="options" id="mobile<%= color.name %>"
+                                                            autocomplete="off" checked>
+                                                        <label class="btn btt-light" for="mobile<%= color.name %>">
+                                                            <span style="background-color: <%=color.hex %>;"></span>
+                                                            <%= color.name %>
+                                                        </label>
+                                                    <% } %>
+                                                <%}) %>     
+                                            <% } %>
                                         </div>
                                     </div>
                                 </div>
@@ -301,63 +242,24 @@
                                 <h5 class="filter-item-title">دسته بندی ها</h5>
                                 <div class="filter-item-content">
                                     <form action="">
-                                        <% if(subCategories) {%>
-                                            <% subCategories.foreach(cat => {%>
-                                                <div class="d-flex align-items-center justify-content-between flex-wrap mb-3"></div>
+                                        <!--all sub categories-->
+                                        
+                                        <% if(locals.subCategories) {%>
+                                            <% subCategories.forEach(cat => {%>
+                                                <div class="d-flex align-items-center justify-content-between flex-wrap mb-3">
                                                     <div class="form-check">
-                                                        <label for="<%= cat.id %>" class="form-check-label"><%= cat.name %><i
+                                                        <label for="screencat<%= cat.id %>" class="form-check-label"><%= cat.name %><i
                                                                 class="bi bi-phone me-1"></i></label>
-                                                        <input type="checkbox" name="" id="<%= cat.id %>"
+                                                        <input type="checkbox" name="" id="screencat<%= cat.id %>"
                                                             class="form-check-input">
                                                     </div>
+                                                    <div>
+                                                        <!--shows a number (number of products in a category)-->
+                                                        <span class="fw-bold font-14"></span>
+                                                    </div>
                                                 </div>
-                                            <%})%>
-                                            
-                                        <% } %>
-                                        <div class="d-flex align-items-center justify-content-between flex-wrap mb-3">
-                                            <div class="form-check">
-                                                <label for="colorCheck11" class="form-check-label">موبایل <i
-                                                        class="bi bi-phone me-1"></i></label>
-                                                <input type="checkbox" name="" id="colorCheck11"
-                                                    class="form-check-input">
-                                            </div>
-                                            <div>
-                                                <span class="fw-bold font-14">(27)</span>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex align-items-center justify-content-between flex-wrap mb-3">
-                                            <div class="form-check">
-                                                <label for="colorCheck55" class="form-check-label">ایرپاد <i
-                                                        class="bi bi-earbuds me-1"></i></label>
-                                                <input type="checkbox" name="" id="colorCheck55"
-                                                    class="form-check-input">
-                                            </div>
-                                            <div>
-                                                <span class="fw-bold font-14">(32)</span>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex align-items-center justify-content-between flex-wrap mb-3">
-                                            <div class="form-check">
-                                                <label for="colorCheck44" class="form-check-label">تبلت <i
-                                                        class="bi bi-tablet me-1"></i></label>
-                                                <input type="checkbox" name="" id="colorCheck44"
-                                                    class="form-check-input">
-                                            </div>
-                                            <div>
-                                                <span class="fw-bold font-14">(14)</span>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex align-items-center justify-content-between flex-wrap mb-3">
-                                            <div class="form-check">
-                                                <label for="colorCheck33" class="form-check-label">هدست <i
-                                                        class="bi bi-headset me-1"></i></label>
-                                                <input type="checkbox" name="" id="colorCheck33"
-                                                    class="form-check-input">
-                                            </div>
-                                            <div>
-                                                <span class="fw-bold font-14">(8)</span>
-                                            </div>
-                                        </div>
+                                            <%})%>                                                
+                                        <% } %>                                                        
                                     </form>
                                 </div>
                             </div>
@@ -387,47 +289,20 @@
                                 <h5 class="filter-item-title">رنگ محصول</h5>
                                 <div class="filter-item-content">
                                     <div class="product-meta-color-items">
-                                        <input type="radio" class="btn-check" name="options" id="option11"
-                                            autocomplete="off" checked>
-                                        <label class="btn btt-light" for="option11">
-                                            <span style="background-color: #c00;"></span>
-                                            قرمز
-                                        </label>
-
-                                        <input type="radio" class="btn-check" name="options" id="option22"
-                                            autocomplete="off">
-                                        <label class="btn btt-light" for="option22">
-                                            <span style="background-color: #111;"></span>
-                                            مشکی
-                                        </label>
-
-                                        <input type="radio" class="btn-check" name="options" id="option33"
-                                            autocomplete="off">
-                                        <label class="btn btt-light" for="option33">
-                                            <span style="background-color: #00cc5f;"></span>
-                                            سبز
-                                        </label>
-
-                                        <input type="radio" class="btn-check" name="options" id="option44"
-                                            autocomplete="off">
-                                        <label class="btn btt-light" for="option44">
-                                            <span style="background-color: #1b69f0;"></span>
-                                            آبی
-                                        </label>
-
-                                        <input type="radio" class="btn-check" name="options" id="option55"
-                                            autocomplete="off">
-                                        <label class="btn btt-light" for="option55">
-                                            <span style="background-color: #891bf0;"></span>
-                                            بنفش
-                                        </label>
-
-                                        <input type="radio" class="btn-check" name="options" id="option66"
-                                            autocomplete="off">
-                                        <label class="btn btt-light" for="option66">
-                                            <span style="background-color: #f0501b;"></span>
-                                            نارنجی
-                                        </label>
+                                        <% const addedColors = [] %>
+                                        <% if (colors) { %>                                         
+                                            <% colors.forEach(color => {%>
+                                                <% if (!addedColors.includes(color.name)) { %>
+                                                    <% addedColors.push(color.name) %>                                             
+                                                    <input type="radio" class="btn-check" name="options" id="screen<%= color.name %>"
+                                                        autocomplete="off" checked>
+                                                    <label class="btn btt-light" for="screen<%= color.name %>">
+                                                        <span style="background-color: <%=color.hex %>;"></span>
+                                                        <%= color.name %>
+                                                    </label>
+                                                <% } %>
+                                            <%}) %>     
+                                        <% } %>
                                     </div>
                                 </div>
                             </div>
@@ -437,7 +312,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-9">
+                <div class="col-lg-9"><!-- sorting -->
                     <div class="category-sort mb-3">
                         <div class="content-box">
                             <div class="container-fluid">

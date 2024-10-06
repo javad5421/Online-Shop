@@ -32,18 +32,30 @@ async function getProductsByCategory(req, res, next) {
 
         const cat_id = parseInt(req.params.catid);
         const allsubCategories = await getAllCategoryIds(cat_id);
-        const allCategoryIds = allsubCategories.rows.map(row => row.id);
+        const allCategoryIds = allsubCategories.map(cat => cat.id);
         const products = await getProducts(false,true,true,false, 0, -1, allCategoryIds);
         
         let subCategories = null;
         if (allsubCategories.length > 1) {
-            subCategories = allsubCategories.filter(item => item.parent_id != null);
+            subCategories = allsubCategories.filter(item => item.id != cat_id);
         }
         
+        //extract colors from all selected products and put them in color
+        const colors = [];
+        products.forEach(p => {
+            if ('colors' in p) {
+                p.colors.forEach(color => {
+                    const newColor = [color.name, color.hex];
+                    colors.push(newColor);
+                })
+            }
+        });
+
         res.render('category.ejs', {
             categories: nestedMenu,
             products: products,
-            subCategories: subCategories
+            subCategories: subCategories,
+            colors: colors
         });
     } catch (error) {
         console.log(error.message + " stack: " + error.stack);
