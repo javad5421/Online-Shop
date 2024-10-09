@@ -25,6 +25,7 @@ async function getProductById(req, res, next) {
     }
 }
 
+//to populate category page
 async function getProductsByCategory(req, res, next) {
     try {
         const categories = await getAllCategory();
@@ -39,7 +40,19 @@ async function getProductsByCategory(req, res, next) {
         if (allsubCategories.length > 1) {
             subCategories = allsubCategories.filter(item => item.id != cat_id);
         }
+
+        //bread crmub
+        let breadCrumb = [];
+        let crumbCategotyIds = [];
         
+        crumbCategotyIds = returnCrumb(categories, cat_id).reverse();
+        for (let index = 0; index < crumbCategotyIds.length; index++) {
+            const link = `/products/category/${crumbCategotyIds[index]}`;
+            const title = categories.find(cat => cat.id === crumbCategotyIds[index]).name;
+            breadCrumb.push({title: title, url: link});
+        }
+        console.log(crumbCategotyIds);
+        console.log(breadCrumb);
         //extract colors from all selected products and put them in color
         const colors = [];
         products.forEach(p => {
@@ -55,12 +68,27 @@ async function getProductsByCategory(req, res, next) {
             categories: nestedMenu,
             products: products,
             subCategories: subCategories,
-            colors: colors
+            colors: colors,
+            breadCrumb: breadCrumb
         });
     } catch (error) {
         console.log(error.message + " stack: " + error.stack);
         next(error);
     }
+}
+
+function returnCrumb(categories, id){
+    const crumbCategories = [];
+
+    const currentCategory = categories.find(item => item.id == id);
+    crumbCategories.push(id)
+    if(currentCategory.parent_id != null){
+        returnCrumb(categories, currentCategory.parent_id).forEach(item => {
+            crumbCategories.push(item);
+        })
+    }
+    
+    return crumbCategories;
 }
 
 export {getProductById, getProductsByCategory};
